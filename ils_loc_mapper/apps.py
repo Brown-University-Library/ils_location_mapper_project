@@ -4,4 +4,4 @@ from django.apps import AppConfig
 
 
 class AppXConfig(AppConfig):
-    name = 'app_x'
+    name = 'ils_loc_mapper'

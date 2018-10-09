@@ -19,16 +19,16 @@ Template [runserver](https://docs.djangoproject.com/en/1.11/ref/django-admin/#ru
 
         - source new env, and run: `pip install --upgrade pip`
     - git clone existing app, or...
-        - `git clone https://github.com/birkin/django_template_project.git ./project_x`
+        - `git clone https://github.com/birkin/ils_location_mapper_project.git ./project_x`
             - remove the .git/ dir
         - set up in SourceTree (git init)
         - push to GitHub
     - make sublime project
     - update names
-        - change all `django_template_project` references to name of project
-        - change all `app_x` references to actual name of app
-        - include in above app_x and app_x_templates directories
-        - change all `DJANGO_TEMPLATE__` settings references to name of project-settings prefix
+        - change all `ils_location_mapper_project` references to name of project
+        - change all `ils_loc_mapper` references to actual name of app
+        - include in above ils_loc_mapper and ils_loc_mapper_templates directories
+        - change all `ILS_LOC_MPR__` settings references to name of project-settings prefix
     - with new env activated, pip update it from requirements.txt
         - note that version of Django is _partially_ specified -- this is the latest [long-term-support version](https://docs.djangoproject.com/en/dev/internals/release-process/)
         - update requirements.txt with versions

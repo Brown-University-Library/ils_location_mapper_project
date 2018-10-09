@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import datetime, json, logging, os, subprocess
-from app_x import settings_app
+from ils_loc_mapper import settings_app
 from django.conf import settings
 # from django.core.urlresolvers import reverse
 
