@@ -15,8 +15,13 @@ class Mapper(object):
     def validate_request( self, get_dct ):
         """ Validates params.
             Called by views.map_location_code() """
-        return ( False, 'foo' )
+        return ( True, None )
 
     def prep_bad_response( self, err ):
         rsp = HttpResponseBadRequest( '400 / %s' % err )
         return rsp
+
+    def prep_data( self, get_dct ):
+        """ Performs lookup & preps json.
+            Called by views.map_location_code() """
+
