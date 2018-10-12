@@ -27,6 +27,12 @@ def info( request ):
     return HttpResponse( output, content_type='application/json; charset=utf-8' )
 
 
-def get_location_format( request ):
+def map_location_code( request ):
     """ Returns format for specific code or all data. """
-    return HttpResponse( 'coming' )
+    ( is_valid, err ) = mapper.validate_request( request )
+    if is_valid is True:
+        data = mapper.prep_data( request.GET )
+        rsp = mapper.prep_response( data )
+    else:
+        rsp = mapper.prep_bad_response( err )
+    return rsp
