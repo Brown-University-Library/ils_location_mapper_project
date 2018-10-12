@@ -15,7 +15,7 @@ log = logging.getLogger(__name__)
 
 def info( request ):
     """ Returns basic data including branch & commit. """
-    log.debug( 'request.__dict__, ```%s```' % pprint.pformat(request.__dict__) )
+    # log.debug( 'request.__dict__, ```%s```' % pprint.pformat(request.__dict__) )
     rq_now = datetime.datetime.now()
     commit = view_info_helper.get_commit()
     branch = view_info_helper.get_branch()
@@ -25,3 +25,8 @@ def info( request ):
     context_dct = view_info_helper.make_context( request, rq_now, info_txt, taken )
     output = json.dumps( context_dct, sort_keys=True, indent=2 )
     return HttpResponse( output, content_type='application/json; charset=utf-8' )
+
+
+def get_location_format( request ):
+    """ Returns format for specific code or all data. """
+    return HttpResponse( 'coming' )

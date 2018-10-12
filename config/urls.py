@@ -15,6 +15,8 @@ urlpatterns = [
 
     url( r'^info/$', views.info, name='info_url' ),
 
+    url( r'^v1/$', views.get_location_format, name='location_format_url' ),
+
     url( r'^$', RedirectView.as_view(pattern_name='info_url') ),
 
     ]
