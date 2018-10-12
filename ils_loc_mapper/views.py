@@ -3,6 +3,7 @@
 import datetime, json, logging, os, pprint
 from . import settings_app
 from ils_loc_mapper.lib import view_info_helper
+from ils_loc_mapper.lib.mapper_helper import Mapper
 from django.conf import settings as project_settings
 from django.contrib.auth import logout
 from django.core.urlresolvers import reverse
@@ -11,6 +12,7 @@ from django.shortcuts import get_object_or_404, render
 
 
 log = logging.getLogger(__name__)
+mapper = Mapper()
 
 
 def info( request ):
