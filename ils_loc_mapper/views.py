@@ -31,10 +31,15 @@ def info( request ):
 
 def map_location_code( request ):
     """ Returns format for specific code or all data. """
-    ( is_valid, err ) = mapper.validate_request( request )
-    if is_valid is True:
-        data = mapper.prep_data( request.GET )
-        rsp = mapper.prep_response( data )
+    vldty_dct = mapper.validate_request( request )
+    if vldty_dct['rslt'] == False:
+        rsp =  mapper.prep_bad_request_response( vldty_dct['err'] )
+        return rsp
+    request_type = mapper.get_request_type( request.GET )
+    if request_type == 'code':
+        data_dct = mapper.prep_code_data( request.GET['code'] )
+        rsp = mapper.prep_code_response( data_dct )
     else:
-        rsp = mapper.prep_bad_response( err )
+        data_dct = mapper.prep_dump_data()
+        rsp = mapper.prep_dump_response( data_dct )
     return rsp
