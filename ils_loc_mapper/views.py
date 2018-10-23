@@ -31,7 +31,7 @@ def info( request ):
 
 def map_location_code( request ):
     """ Returns format for specific code or all data. """
-    vldty_dct = mapper.validate_request( request )
+    vldty_dct = mapper.validate_request( request.GET )
     if vldty_dct['rslt'] == False:
         rsp =  mapper.prep_bad_request_response( vldty_dct['err'] )
         return rsp

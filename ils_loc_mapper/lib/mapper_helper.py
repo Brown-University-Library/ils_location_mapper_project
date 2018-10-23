@@ -16,7 +16,25 @@ class Mapper(object):
     def validate_request( self, get_dct ):
         """ Validates params.
             Called by views.map_location_code() """
-        out = {'rslt': True, 'err': None}
+        out = {'rslt': False, 'err': None}
+        log.debug( 'get_dct, `%s`' % get_dct )
+        log.debug( 'get_dct.keys(), ```%s```' % get_dct.keys() )
+        code_val = get_dct.get( 'code', None )
+        log.debug( 'code_val, `%s`' % code_val )
+        if code_val:
+            log.debug( 'len(code_val), `%s`' % len(code_val) )
+            if len(code_val) > 0:
+                out['rslt'] = True
+        else:
+            param_val = get_dct.get( 'data', None )
+            log.debug( 'param_val, `%s`' % param_val )
+
+            if param_val:
+                log.debug( 'len(param_val), `%s`' % len(param_val) )
+                if len(param_val) > 0:
+                    out['rslt'] = True
+
+
         log.debug( 'validity-out, ```%s```' % out )
         return ( out )
 
