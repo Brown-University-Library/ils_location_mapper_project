@@ -16,27 +16,16 @@ class Mapper(object):
     def validate_request( self, get_dct ):
         """ Validates params.
             Called by views.map_location_code() """
-        out = {'rslt': False, 'err': None}
-        log.debug( 'get_dct, `%s`' % get_dct )
-        log.debug( 'get_dct.keys(), ```%s```' % get_dct.keys() )
-        code_val = get_dct.get( 'code', None )
-        log.debug( 'code_val, `%s`' % code_val )
+        out = {'rslt': False, 'err': 'Bad Request'}
+        ( code_val, data_val ) = ( get_dct.get('code', None), get_dct.get('data', None) )
         if code_val:
-            log.debug( 'len(code_val), `%s`' % len(code_val) )
             if len(code_val) > 0:
-                out['rslt'] = True
-        else:
-            param_val = get_dct.get( 'data', None )
-            log.debug( 'param_val, `%s`' % param_val )
-
-            if param_val:
-                log.debug( 'len(param_val), `%s`' % len(param_val) )
-                if len(param_val) > 0:
-                    out['rslt'] = True
-
-
+                out = {'rslt': True, 'err': None}
+        elif data_val:
+                if len(data_val) > 0:
+                    out = {'rslt': True, 'err': None}
         log.debug( 'validity-out, ```%s```' % out )
-        return ( out )
+        return out
 
     def get_request_type( self, get_dct ):
         """ Returns `code` or `dump`.
@@ -80,7 +69,7 @@ class Mapper(object):
             rsp = HttpResponse( j_out, content_type='application/json; charset=utf-8' )
         return rsp
 
-    def prep_bad_response( self, err ):
+    def prep_bad_request_response( self, err ):
         rsp = HttpResponseBadRequest( '400 / %s' % err )
         return rsp
 
