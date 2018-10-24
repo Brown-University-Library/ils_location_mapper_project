@@ -30,9 +30,13 @@ class Mapper(object):
     def get_request_type( self, get_dct ):
         """ Returns `code` or `dump`.
             Called by views.map_location_code() """
-        out = 'code'
-        log.debug( 'out, `%s`' % out )
-        return out
+        try:
+            get_dct['code']
+            code_type = 'code'
+        except Exception as e:
+            code_type = 'data'
+        log.debug( 'code_type, `%s`' % code_type )
+        return code_type
 
     def prep_code_data( self, code ):
         """ Performs lookup & returns data.
