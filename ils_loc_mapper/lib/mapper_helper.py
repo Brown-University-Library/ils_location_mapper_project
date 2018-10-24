@@ -56,6 +56,16 @@ class Mapper(object):
         log.debug( 'data-out, ```%s```' % out )
         return out
 
+    def prep_dump_data( self ):
+        """ Returns all data.
+            Called by views.map_location_code() """
+        data_lst = []
+        data_objs = LocationCodeMapper.objects.all().order_by( 'code' )
+        for obj in data_objs:
+            data_lst.append( obj.dct() )
+        log.debug( 'data_lst, ```%s```' % pprint.pformat(data_lst) )
+        return data_lst
+
     def prep_code_response( self, data_dct ):
         """ Returns appropriate response based on data.
             Called by views.map_location_code() """
