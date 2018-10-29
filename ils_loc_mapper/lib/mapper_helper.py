@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import datetime, json, logging
+import datetime, json, logging, pprint
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, HttpResponseServerError
 from ils_loc_mapper.models import LocationCodeMapper
 
@@ -56,15 +56,40 @@ class Mapper(object):
         log.debug( 'data-out, ```%s```' % out )
         return out
 
+
+
+
+    # def prep_dump_data( self ):
+    #     """ Returns all data.
+    #         Called by views.map_location_code() """
+    #     data_lst = []
+    #     data_objs = LocationCodeMapper.objects.all().order_by( 'code' )
+    #     for obj in data_objs:
+    #         data_lst.append( obj.dct() )
+    #     log.debug( 'data_lst, ```%s```' % pprint.pformat(data_lst) )
+    #     return data_lst
+
+    # def prep_dump_data( self ):
+    #     """ Returns all data.
+    #         Called by views.map_location_code() """
+    #     data_lst = []
+    #     data_objs = LocationCodeMapper.objects.all().order_by( 'code' )
+    #     from django.core import serializers
+    #     data = serializers.serialize( 'json', data_objs, fields=('code','building', 'display', 'format') )  # https://docs.djangoproject.com/en/2.1/topics/serialization/
+    #     log.debug( 'data, ```%s```' % data )
+    #     return data
+
     def prep_dump_data( self ):
         """ Returns all data.
             Called by views.map_location_code() """
         data_lst = []
         data_objs = LocationCodeMapper.objects.all().order_by( 'code' )
         for obj in data_objs:
-            data_lst.append( obj.dct() )
+            data_lst.append( obj.dictify() )
         log.debug( 'data_lst, ```%s```' % pprint.pformat(data_lst) )
         return data_lst
+
+
 
     def prep_code_response( self, data_dct ):
         """ Returns appropriate response based on data.

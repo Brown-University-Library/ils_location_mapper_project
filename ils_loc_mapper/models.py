@@ -18,5 +18,14 @@ class LocationCodeMapper(models.Model):
     create_date = models.DateTimeField( auto_now_add=True, help_text='Set automatically on save.' )
     modify_date = models.DateTimeField( auto_now=True, help_text='Set automatically on save.' )
 
+    def dictify(self):
+        dct = {
+            'code': self.code,
+            'building': self.building,
+            'display': self.display,
+            'format': self.format
+        }
+        return dct
+
     def __str__(self):
         return '%s - %s' % ( self.building, self.format )
