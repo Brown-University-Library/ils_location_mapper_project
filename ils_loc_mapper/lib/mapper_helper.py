@@ -82,12 +82,16 @@ class Mapper(object):
     def prep_dump_data( self ):
         """ Returns all data.
             Called by views.map_location_code() """
-        data_lst = []
+        items_dct = {}
         data_objs = LocationCodeMapper.objects.all().order_by( 'code' )
         for obj in data_objs:
-            data_lst.append( obj.dictify() )
-        log.debug( 'data_lst, ```%s```' % pprint.pformat(data_lst) )
-        return data_lst
+            obj_dct = obj.dictify()
+            del( obj_dct['code'] )
+            # log.debug( 'obj_dct, ```%s```' % obj_dct )
+            # 1/0
+            items_dct[obj.code] = obj_dct
+        log.debug( 'items_dct, ```%s```' % pprint.pformat(items_dct) )
+        return items_dct
 
 
 
@@ -107,6 +111,23 @@ class Mapper(object):
             j_out = json.dumps( out_dct, sort_keys=True, indent=2 )
             rsp = HttpResponse( j_out, content_type='application/json; charset=utf-8' )
         return rsp
+
+
+    def prep_dump_response( self, data_lst ):
+        """ Returns json response.
+            Called by views.map_location_code() """
+        out_dct = {
+            'request': 'request-url-coming',
+            'result': {
+                'items': data_lst,
+                'docs': 'url-coming'
+            }
+        }
+        j_out = json.dumps( out_dct, sort_keys=True, indent=2 )
+        rsp = HttpResponse( j_out, content_type='application/json; charset=utf-8' )
+        return rsp
+
+
 
     def prep_bad_request_response( self, err ):
         rsp = HttpResponseBadRequest( '400 / %s' % err )
