@@ -69,31 +69,39 @@ class Mapper(object):
         log.debug( 'items_dct, ```%s...```' % pprint.pformat(items_dct)[0:100] )
         return items_dct
 
-    def prep_code_response( self, data_dct, request ):
+    def prep_code_response( self, data_dct, request, rq_now ):
         """ Returns appropriate response based on data.
             Called by views.map_location_code() """
         if data_dct['err']:
             rsp = HttpResponseNotFound( '404 / no match for code')
         else:
             out_dct = {
-                'request': common.make_request_url( request ),
+                'request': {
+                    'url': common.make_request_url( request ),
+                    'timestamp': str( rq_now )
+                },
                 'result': {
                     'items': [ data_dct['rslt'] ],
-                    'docs': 'url-coming'
+                    'docs': 'url-coming',
+                    'elapsed_time': str( datetime.datetime.now() - rq_now )
                 }
             }
             j_out = json.dumps( out_dct, sort_keys=True, indent=2 )
             rsp = HttpResponse( j_out, content_type='application/json; charset=utf-8' )
         return rsp
 
-    def prep_dump_response( self, data_dct, request ):
+    def prep_dump_response( self, data_dct, request, rq_now ):
         """ Returns json response.
             Called by views.map_location_code() """
         out_dct = {
-            'request': common.make_request_url( request ),
+            'request': {
+                'url': common.make_request_url( request ),
+                'timestamp': str( rq_now )
+                },
             'result': {
                 'items': data_dct,
-                'docs': 'url-coming'
+                'docs': 'url-coming',
+                'elapsed_time': str( datetime.datetime.now() - rq_now )
             }
         }
         j_out = json.dumps( out_dct, sort_keys=True, indent=2 )
