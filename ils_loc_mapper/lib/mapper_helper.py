@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import datetime, json, logging, pprint
+from . import common
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, HttpResponseServerError
 from ils_loc_mapper.models import LocationCodeMapper
 
@@ -68,14 +69,14 @@ class Mapper(object):
         log.debug( 'items_dct, ```%s...```' % pprint.pformat(items_dct)[0:100] )
         return items_dct
 
-    def prep_code_response( self, data_dct ):
+    def prep_code_response( self, data_dct, request ):
         """ Returns appropriate response based on data.
             Called by views.map_location_code() """
         if data_dct['err']:
             rsp = HttpResponseNotFound( '404 / no match for code')
         else:
             out_dct = {
-                'request': 'request-url-coming',
+                'request': common.make_request_url( request ),
                 'result': {
                     'items': [ data_dct['rslt'] ],
                     'docs': 'url-coming'

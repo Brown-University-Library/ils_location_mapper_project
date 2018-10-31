@@ -38,7 +38,7 @@ def map_location_code( request ):
     request_type = mapper.get_request_type( request.GET )
     if request_type == 'code':
         data_dct = mapper.prep_code_data( request.GET['code'] )
-        rsp = mapper.prep_code_response( data_dct )
+        rsp = mapper.prep_code_response( data_dct, request )
     else:
         data_dct = mapper.prep_dump_data()
         rsp = mapper.prep_dump_response( data_dct )

@@ -48,7 +48,8 @@ def make_context( request, rq_now, info_txt, taken ):
         Called by views.info() """
     cntxt = {
         'request': {
-            'url': common.make_request_url( request.scheme, request.META ),
+            # 'url': common.make_request_url( request.scheme, request.META ),
+            'url': common.make_request_url( request ),
             'timestamp': str( rq_now )
         },
         'response': {
