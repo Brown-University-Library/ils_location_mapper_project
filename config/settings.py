@@ -185,3 +185,6 @@ LOGGING = {
         },
     }
 }
+
+## https://docs.djangoproject.com/en/1.11/topics/cache/
+CACHES = json.loads( os.environ['ILS_LOC_MPR__CACHES_JSON'] )
