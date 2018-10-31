@@ -3,6 +3,7 @@
 import datetime, json, logging, pprint
 from . import common
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, HttpResponseServerError
+from ils_loc_mapper import settings_app
 from ils_loc_mapper.models import LocationCodeMapper
 
 
@@ -82,7 +83,7 @@ class Mapper(object):
                 },
                 'result': {
                     'items': [ data_dct['rslt'] ],
-                    'docs': 'url-coming',
+                    'documentation': settings_app.README_URL,
                     'elapsed_time': str( datetime.datetime.now() - rq_now )
                 }
             }
@@ -100,7 +101,7 @@ class Mapper(object):
                 },
             'result': {
                 'items': data_dct,
-                'docs': 'url-coming',
+                'documentation': settings_app.README_URL,
                 'elapsed_time': str( datetime.datetime.now() - rq_now )
             }
         }
