@@ -109,14 +109,11 @@ class Mapper(object):
         out_dct = {
             'request': {
                 'url': common.make_request_url( request ),
-                'timestamp': str( rq_now )
-                },
+                'timestamp': str( rq_now ) },
             'result': {
                 'items': data_dct,
                 'documentation': settings_app.README_URL,
-                'elapsed_time': str( datetime.datetime.now() - rq_now )
-            }
-        }
+                'elapsed_time': str( datetime.datetime.now() - rq_now ) } }
         j_out = json.dumps( out_dct, sort_keys=True, indent=2 )
         rsp = HttpResponse( j_out, content_type='application/json; charset=utf-8' )
         return rsp
@@ -130,3 +127,5 @@ class Mapper(object):
             Called by views.map_location_code() """
         rsp =HttpResponseServerError( '500 / %s' % message )
         return rsp
+
+    ## end class Mapper()
