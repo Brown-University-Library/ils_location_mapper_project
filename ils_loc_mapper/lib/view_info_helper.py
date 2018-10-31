@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import datetime, json, logging, os, subprocess
-from ils_loc_mapper import settings_app
+from . import common
 from django.conf import settings
-# from django.core.urlresolvers import reverse
+from ils_loc_mapper import settings_app
 
 
 log = logging.getLogger(__name__)
@@ -48,10 +48,7 @@ def make_context( request, rq_now, info_txt, taken ):
         Called by views.info() """
     cntxt = {
         'request': {
-            'url': '%s://%s%s' % ( request.scheme,
-                request.META.get( 'HTTP_HOST', '127.0.0.1' ),  # HTTP_HOST doesn't exist for client-tests
-                request.META.get('REQUEST_URI', request.META['PATH_INFO'])
-                ),
+            'url': common.make_request_url( request.scheme, request.META ),
             'timestamp': str( rq_now )
         },
         'response': {
@@ -61,3 +58,22 @@ def make_context( request, rq_now, info_txt, taken ):
         }
     }
     return cntxt
+
+# def make_context( request, rq_now, info_txt, taken ):
+#     """ Builds and returns context.
+#         Called by views.info() """
+#     cntxt = {
+#         'request': {
+#             'url': '%s://%s%s' % ( request.scheme,
+#                 request.META.get( 'HTTP_HOST', '127.0.0.1' ),  # HTTP_HOST doesn't exist for client-tests
+#                 request.META.get('REQUEST_URI', request.META['PATH_INFO'])
+#                 ),
+#             'timestamp': str( rq_now )
+#         },
+#         'response': {
+#             'documentation': settings_app.README_URL,
+#             'version': info_txt,
+#             'elapsed_time': str( taken )
+#         }
+#     }
+#     return cntxt
