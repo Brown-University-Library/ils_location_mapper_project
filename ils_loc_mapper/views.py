@@ -41,5 +41,5 @@ def map_location_code( request ):
         rsp = mapper.prep_code_response( data_dct, request )
     else:
         data_dct = mapper.prep_dump_data()
-        rsp = mapper.prep_dump_response( data_dct )
+        rsp = mapper.prep_dump_response( data_dct, request )
     return rsp

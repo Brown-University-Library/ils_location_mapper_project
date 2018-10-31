@@ -86,13 +86,13 @@ class Mapper(object):
             rsp = HttpResponse( j_out, content_type='application/json; charset=utf-8' )
         return rsp
 
-    def prep_dump_response( self, data_lst ):
+    def prep_dump_response( self, data_dct, request ):
         """ Returns json response.
             Called by views.map_location_code() """
         out_dct = {
-            'request': 'request-url-coming',
+            'request': common.make_request_url( request ),
             'result': {
-                'items': data_lst,
+                'items': data_dct,
                 'docs': 'url-coming'
             }
         }
