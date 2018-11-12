@@ -17,6 +17,8 @@ urlpatterns = [
 
     url( r'^v1/$', views.map_location_code, name='mapper_url' ),
 
+    url( r'^login/$', views.login, name='login_url' ),
+
     url( r'^$', RedirectView.as_view(pattern_name='info_url') ),
 
     ]
