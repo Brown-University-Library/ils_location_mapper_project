@@ -47,5 +47,12 @@ def map_location_code( request ):
 
 @shib_login
 def login( request ):
-    """ Brings up shib and redirects to admin. """
-    return HttpResponse( 'foo' )
+    """ Handles authNZ, & redirects to admin.
+        Called by click on login or admin link. """
+    next_url = request.GET.get( 'next', None )
+    if not next_url:
+        redirect_url = reverse( settings_app.POST_LOGIN_ADMIN_REVERSE_URL )
+    else:
+        redirect_url = request.GET['next']  # will often be same page
+    log.debug( 'login redirect url, ```%s```' % redirect_url )
+    return HttpResponseRedirect( redirect_url )
