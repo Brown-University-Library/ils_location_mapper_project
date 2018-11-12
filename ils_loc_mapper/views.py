@@ -2,13 +2,14 @@
 
 import datetime, json, logging, os, pprint
 from . import settings_app
-from ils_loc_mapper.lib import view_info_helper
-from ils_loc_mapper.lib.mapper_helper import Mapper
 from django.conf import settings as project_settings
 from django.contrib.auth import logout
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from ils_loc_mapper.lib import view_info_helper
+from ils_loc_mapper.lib.mapper_helper import Mapper
+from ils_loc_mapper.lib.shib_auth import shib_login  # decorator
 
 
 log = logging.getLogger(__name__)
@@ -44,6 +45,7 @@ def map_location_code( request ):
     return rsp
 
 
+@shib_login
 def login( request ):
     """ Brings up shib and redirects to admin. """
     return HttpResponse( 'foo' )
