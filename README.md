@@ -1,3 +1,6 @@
+[![code-best-practices image](https://library.brown.edu/good_code/project_image/ils_location_mapper/)](https://library.brown.edu/good_code/project_info/ils_location_mapper/)
+
+
 #### overview
 
 This is the web-app code for an API that maps codes in our Sierra [ILS](https://en.wikipedia.org/wiki/Integrated_library_system) to 'building' and 'display' and 'format' strings useful for other applications.
